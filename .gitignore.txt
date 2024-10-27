@@ -1,0 +1,2 @@
+# Ignore all icon PNG files with numbers in the name
+icon*.png
