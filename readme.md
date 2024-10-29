@@ -1,6 +1,6 @@
 # Chrome Chords 🎸
 
-Chrome Chords is a web-based application that helps users learn and practice guitar chords using their Chrome browser.
+Chrome Chords is an extension for Google Chrome that helps users learn and practice guitar chords using their Chrome browser. It removes the annoyance of finding the chords for the song you're currently listening to on YouTube, and enables the sickest possible jam sesh 🤘🔥.
 
 ## Features
 - Automatically retrieves the song title from YouTube
