@@ -11,7 +11,7 @@ Chrome Chords is an extension for Google Chrome that helps users learn and pract
 
 1. Clone or download the repository:
     ```sh
-    git clone https://github.com/yourusername/chrome_chords.git
+    git clone https://github.com/splidsboel/chrome_chords.git
     ```
 2. Open Google Chrome and go to chrome://extensions/.
 
