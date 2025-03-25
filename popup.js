@@ -7,15 +7,22 @@ function getWebsiteForTabUltimateGuitar(url, songTitle) {
 function getWebsiteForTabSongsterr(url, songTitle) {
   return `https://www.songsterr.com/?pattern=${encodeURIComponent(songTitle)}`;
 }
-  
+
   document.getElementById("open-ultimate-guitar").addEventListener("click", () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const activeTab = tabs[0];
-  
+      
       chrome.scripting.executeScript(
         {
           target: { tabId: activeTab.id },
           func: () => {
+            const isSpotify = window.location.hostname.includes("open.spotify.com");
+            const titleElement = isSpotify
+              ? document.querySelector('[data-testid="context-item-link"]')
+              : document.querySelector("#title > h1 > yt-formatted-string");
+          
+            let songTitle = titleElement ? titleElement.textContent : "Unknown Song";
+          
             const phrasesToRemove = [
               "\\(Official Video\\)", 
               "\\(Official Music Video\\)", 
@@ -30,14 +37,14 @@ function getWebsiteForTabSongsterr(url, songTitle) {
               "HD", 
               "HQ"
             ];
-            const titleElement = document.querySelector("#title > h1 > yt-formatted-string");
-            let songTitle = titleElement ? titleElement.textContent : "Unknown Song";
+          
             phrasesToRemove.forEach((phrase) => {
               const regex = new RegExp(phrase, "gi");
               songTitle = songTitle.replace(regex, "").trim();
             });
+          
             return songTitle;
-          },
+          }
         },
         (results) => {
           const songTitle = results[0].result;
@@ -57,6 +64,14 @@ function getWebsiteForTabSongsterr(url, songTitle) {
         {
           target: { tabId: activeTab.id },
           func: () => {
+            const isSpotify = window.location.hostname.includes("open.spotify.com");
+
+            const titleElement = isSpotify ? 
+              document.querySelector('[data-testid="context-item-link"]'):
+              document.querySelector("#title > h1 > yt-formatted-string");
+
+            let songTitle = titleElement ? titleElement.textContent : "Unknown Song";
+
             const phrasesToRemove = [
               "\\(Official Video\\)", 
               "\\(Official Music Video\\)", 
@@ -71,8 +86,7 @@ function getWebsiteForTabSongsterr(url, songTitle) {
               "HD", 
               "HQ"
             ];
-            const titleElement = document.querySelector("#title > h1 > yt-formatted-string");
-            let songTitle = titleElement ? titleElement.textContent : "Unknown Song";
+
             phrasesToRemove.forEach((phrase) => {
               const regex = new RegExp(phrase, "gi");
               songTitle = songTitle.replace(regex, "").trim();
@@ -88,3 +102,5 @@ function getWebsiteForTabSongsterr(url, songTitle) {
       );
     });
   });
+
+  
